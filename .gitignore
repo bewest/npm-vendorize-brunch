@@ -1,3 +1,6 @@
+# NPM packages folder.
+node_modules/
+
 .lock-wscript
 .svn/
 .hg/
