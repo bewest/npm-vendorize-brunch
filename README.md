@@ -187,6 +187,22 @@ naming:
 # PostController = require 'controllers/post'
 !- helper.view
 # require 'helpers/view-helper'
+
+```
+
+naming:
+	require: 'import'
+	include: 'include'
+	prefixApp: ''
+	prefixVendor: 'vendor_'
+
+import controllers.post
+# PostController = require 'controllers/post'
+include helper.view
+# require 'helpers/view-helper'
+vendor_import chaplin
+# Chaplin = require 'chaplin'
+
 ```
 
 ## Module exportation configuration
