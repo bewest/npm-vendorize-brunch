@@ -31,12 +31,12 @@ mediator = @require mediator
 # the module filename are automatically suffixed
 @require controller.posts
 # PostsController = require 'controllers/posts-controller'
-
 @require view.post
 # PostView = require 'views/post-view'
-
 @require view.post.avatar
 # PostAvatarView = require 'views/post/avatar-view'
+@require collectionView.posts
+# PostsCollectionView = require 'views/posts-collection-view'
 
 # the model don't have suffix
 @require model.post
@@ -53,6 +53,10 @@ mediator = @require mediator
 # the file are loaded even with shortcut
 @require template.album
 # AlbumTemplate = require 'views/album/template/album'
+@require view.album
+# AlbumView = require 'views/album/album-view'
+@require view.album.slider
+# AlbumSliderView = require 'views/album/slider/slider-view'
 
 # you could also specify a variable name for conveniency
 template = @require template.album
@@ -70,14 +74,12 @@ Be aware that the path will be used to generate the variable name, so you may wa
 # automatic variable naming based on module path
 $require chaplin
 # Chaplin = require 'chaplin'
-
 $require chaplin/lib/router
 # ChaplinLibRouter = require 'chaplin/lib/router'
 
-# you can like the app module, specify the variable name
+# you can, like the app module, specify the variable name
 ChaplinRouter = $require chaplin.lib.router
 # ChaplinRouter = require 'chaplin/lib/router'
-
 Dispatcher = $require chaplin.dispatcher
 # Dispatcher = require 'chaplin/dispatcher'
 
