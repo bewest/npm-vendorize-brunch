@@ -9,6 +9,9 @@ MyModule = require 'modules/my_module-module'
 @require modules.robot
 # ModuleRobot = require 'modules/robot-module'
 
+class MyModule
+# module.exports = class MyModule
+
 ```
 
 ## Usage
@@ -181,9 +184,9 @@ naming:
 	prefixVendor: '$'
 
 !~ controllers.post
--> PostController = require 'controllers/post'
+# PostController = require 'controllers/post'
 !- helper.view
--> require 'helpers/view-helper'
+# require 'helpers/view-helper'
 ```
 
 ## Module exportation configuration
