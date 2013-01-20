@@ -88,6 +88,7 @@ Dispatcher = $require chaplin.dispatcher
 If you want to add types:
 
 ```coffeescript
+
 types:
 	factory:
 		path: 'factories'
@@ -101,22 +102,37 @@ types:
 
 @require module.robot
 # RobotModule = require 'modules/robot'
+
 ```
 
 Of course, you may want to edit existing types:
 
 ```coffeescript
+
 types:
 	controller:
 		path: 'app-controllers'
 	template:
 		path: 'theme/awesome/template'
 		extension: 'mustache'
+
 ```
+
+Configurated types:
+
+* controller
+* view
+* model
+* collectionView
+* template
+* helper
+* config
+* lib
 
 Available type options:
 
 ```coffeescript
+
 	# main folder of the type
 	# the field is required
 	path: 'controllers'
@@ -146,6 +162,7 @@ Available type options:
 	# generate the variable name without the type suffixed
 	# for example, it's better to have Post rather than PostModel
 	varNameWithoutType: no
+
 ```
 
 ## Naming configuration
@@ -153,6 +170,7 @@ Available type options:
 Maybe you don't want to use @require or @include:
 
 ```coffeescript
+
 naming:
 	require: '~'
 	include: '-'
@@ -167,7 +185,8 @@ naming:
 
 ## Module exportation configuration
 
-```
+```coffeescript
+
 # prefix all class definition by the defined string
 # set to null to disable
 # the string that will prefix the class definition
