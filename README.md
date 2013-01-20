@@ -190,6 +190,8 @@ naming:
 
 ```
 
+```coffeescript
+
 naming:
 	require: 'import'
 	include: 'include'
