@@ -5,9 +5,9 @@ It's not intrusive, so you can always use the normal way:
 
 ```coffeescript
 
-MyModule = require 'modules/my_module'
+MyModule = require 'modules/my_module-module'
 @require modules.robot
-# ModuleRobot = require 'modules/robot_module'
+# ModuleRobot = require 'modules/robot-module'
 
 ```
 
@@ -161,6 +161,7 @@ Available type options:
 
 	# generate the variable name without the type suffixed
 	# for example, it's better to have Post rather than PostModel
+	# default value: no
 	varNameWithoutType: no
 
 ```
