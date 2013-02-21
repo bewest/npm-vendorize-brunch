@@ -1,6 +1,9 @@
 # NPM packages folder.
 node_modules/
 
+# don't track build folder
+lib/
+
 .lock-wscript
 .svn/
 .hg/
@@ -10,3 +13,4 @@ CVS/
 *.bak
 .DS_Store
 npm-debug.log
+
