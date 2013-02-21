@@ -124,11 +124,12 @@ module.exports = class Module
       if varNameWithType
         typeName = inflection.underscore @type.split('-').join('_'), yes # allUpperCase
         # the name of the file is not the suffix
-        if @name isnt typeName
-          @name += '_' + typeName
+        @name += '_' + typeName if @name isnt typeName
 
-      if @parentPath?
-        @name = @parentPath.replace('/', '_') + '_' + @name
+      @name = @parentPath + '_' + @name if @parentPath?
+
+    # replace all slashes left
+    @name = @name.replace(/\//g, '_')
 
     @varName = inflection.camelize @name
 
