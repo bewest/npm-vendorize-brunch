@@ -122,7 +122,10 @@ module.exports = class Module
 
       # suffix activated
       if varNameWithType
-        typeName = inflection.underscore @type.split('-').join('_'), yes # allUpperCase
+
+        # inflection.underscore(string, yes) : allUpperCase
+        typeName = inflection.underscore @type.split('-').join('_'), yes
+
         # the name of the file is not the suffix
         @name += '_' + typeName if @name isnt typeName
 
