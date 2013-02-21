@@ -14,6 +14,10 @@ class MyModule
 
 ```
 
+## Features
+
+* Use Brunch notifications when a file is missing
+
 ## Usage
 
 Add `"preprocessor-brunch": "x.y.z"` to `package.json` of your brunch app.
