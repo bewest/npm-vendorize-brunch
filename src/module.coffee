@@ -36,6 +36,10 @@ module.exports = class Module
 
     @name = @filename.split('-').join('_')
 
+  ###*
+   * Find the path of the module.
+   * @return BOOL pathHasBeenFound
+  ###
   findPath: ->
     return @isVendor or @fileExists @fullPath if @localized
 
@@ -83,6 +87,10 @@ module.exports = class Module
 
     return @fileExists @fullPath
 
+  ###*
+   * Get the candidate paths from the path, filename and type configuration
+   * @return array candidatePaths
+  ###
   getCandidateFolders: ->
     candidatePaths = []
 
@@ -107,10 +115,18 @@ module.exports = class Module
 
     candidatePaths
 
+  ###*
+   * Get the variable name generated.
+   * @return string varName
+  ###
   getVarName: ->
     @generateVarName() unless @varName?
     @varName
 
+  ###*
+   * Generate the variable name from the path and the filename.
+   * @return void
+  ###
   generateVarName: ->
     varNameWithFilename = @config? and @config.varNameWithFilename
 
@@ -129,6 +145,7 @@ module.exports = class Module
         # the name of the file is not the suffix
         @name += '_' + typeName if @name isnt typeName
 
+      # in case if the parent path contain /
       @name = @parentPath + '_' + @name if @parentPath?
 
     # replace all slashes left
@@ -136,13 +153,28 @@ module.exports = class Module
 
     @varName = inflection.camelize @name
 
+  ###*
+   * Check if a dir exists.
+   * @param string dirPath
+   * @return BOOL isDirectory
+  ###
   isDir: (path) ->
     stats = fs.statSync @pathResolve path
     stats.isDirectory()
 
+  ###*
+   * Check if a file exists.
+   * @param  string filePath
+   * @return BOOL fileExists
+  ###
   fileExists: (path) ->
     fs.existsSync @pathResolve path
 
+  ###*
+   * Make sure we working with an app path.
+   * @param  string path
+   * @return string pathResolved
+  ###
   pathResolve: (path) ->
     path = sysPath.resolve process.cwd(), @appPath + path
     path
