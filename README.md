@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/SuperSkunk/preprocessor-brunch.png)](https://travis-ci.org/SuperSkunk/preprocessor-brunch)
+
 ## preprocessor-brunch
 
 Easy include/require in Coffeescript to write less code.<br>
