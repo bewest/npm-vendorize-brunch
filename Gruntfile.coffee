@@ -42,6 +42,16 @@ module.exports = (grunt) ->
       options:
         bare: true
 
+    # Watcher
+    # -------
+
+    watch:
+      src:
+        files: 'src/*.coffee'
+        tasks: ['coffee:compile']
+        options:
+          interrupt: true
+
     copy:
       test:
         files: [
