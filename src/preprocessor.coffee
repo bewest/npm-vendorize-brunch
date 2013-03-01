@@ -138,7 +138,7 @@ module.exports = class Preprocessor
     # warning: it should not finish by a dot
     regexString += "([a-z\\.0-9_-]+[0-9a-z_-]+)$"
 
-    @regexes.require = new RegExp regexString, 'gi'
+    @regexes.require = new RegExp regexString, 'gim'
 
   ###*
    * Initialize export regex.
@@ -146,7 +146,7 @@ module.exports = class Preprocessor
   ###
   prepareRegexExport: ->
     regexString = "^class ([a-z0-9_-]+)"
-    @regexes.export = new RegExp regexString, 'gi'
+    @regexes.export = new RegExp regexString, 'gim'
 
   ###*
    * Wrap the preprocessor in this function.

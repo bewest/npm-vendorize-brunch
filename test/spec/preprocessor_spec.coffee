@@ -1,3 +1,5 @@
+fs = require 'fs'
+
 Module = require './lib/module'
 Preprocessor = require './lib/preprocessor'
 expect = require('chai').expect
@@ -58,3 +60,29 @@ describe 'preprocessor', ->
         it 'should not match declaration ' + declaration, ->
           matched = preprocessor.regexes.export.test(declaration)
           expect(matched).to.be.false
+
+  describe 'content generation', ->
+
+    files = [
+      {
+        before: 'test/files/controller.coffee'
+        after : 'test/files/controller_generated.coffee'
+      }
+      {
+        before: 'test/files/view.coffee'
+        after : 'test/files/view_generated.coffee'
+      }
+    ]
+
+    for file in files
+      do (file) ->
+
+        it 'should generate the correct file content', ->
+
+          # we need utf8 option to get the content and not the buffer
+          beforeContent = fs.readFileSync file.before, 'utf8'
+          afterContent = fs.readFileSync file.after, 'utf8'
+
+          processedContent = preprocessor.preprocess beforeContent
+
+          expect(processedContent).to.equal(afterContent)
