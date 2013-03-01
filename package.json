@@ -12,7 +12,7 @@
   },
   "main": "./lib/preprocessor",
   "scripts": {
-    "postinstall": "grunt build",
+    "prepublish": "grunt build",
     "test": "grunt test"
   },
   "dependencies": {
