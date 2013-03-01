@@ -15,8 +15,8 @@ module.exports = (grunt) ->
     # Clean
     # -----
     clean:
-      temp: 'lib'
-      test: ['test/temp*']
+      tmp: 'lib'
+      test: ['test/tmp*']
 
     # Compilation
     # -----------
@@ -33,8 +33,17 @@ module.exports = (grunt) ->
       test:
         files: [
           expand: true
-          dest: 'test/temp/'
+          dest: 'test/tmp/'
           cwd: 'test/spec'
+          src: '**/*.coffee'
+          ext: '.js'
+        ]
+
+      testFixtures:
+        files: [
+          expand: true
+          dest: 'test/tmp/fixtures/'
+          cwd: 'test/fixtures'
           src: '**/*.coffee'
           ext: '.js'
         ]
@@ -56,7 +65,7 @@ module.exports = (grunt) ->
       test:
         files: [
           expand: true
-          dest: 'test/temp/'
+          dest: 'test/tmp/lib/'
           cwd: 'lib'
           src: '**/*.js'
         ]
@@ -67,7 +76,7 @@ module.exports = (grunt) ->
       options: {}
 
       src: [
-        'test/temp/*.js'
+        'test/tmp/*.js'
       ]
 
     # Lint
@@ -97,6 +106,7 @@ module.exports = (grunt) ->
     'clean'
     'coffee:compile'
     'coffee:test'
+    'coffee:testFixtures'
     'copy:test'
     'simplemocha'
     'clean:test'

@@ -116,7 +116,8 @@ module.exports = class Preprocessor
   ###
   prepareRegexRequire: ->
     # optional variable name
-    regexString  = "([a-zA-Z0-9\\.0-9_-]+ = )?"
+    # ex: MyVar =
+    regexString  = "([a-z0-9\\.0-9_-]+ = )?"
 
     # type of include/require
     regexString += "("
@@ -133,18 +134,19 @@ module.exports = class Preprocessor
     regexString += ") "
 
     # module path
-    regexString += "([a-zA-Z\\.0-9_-]+)[^\.]$"
+    # ex: my.module.path
+    # warning: it should not finish by a dot
+    regexString += "([a-z\\.0-9_-]+[0-9a-z_-]+)$"
 
-    @regexes.require = new RegExp regexString
+    @regexes.require = new RegExp regexString, 'gi'
 
   ###*
    * Initialize export regex.
    * @return void
   ###
   prepareRegexExport: ->
-    regexString = "^class ([a-zA-Z0-9_-]+)"
-
-    @regexes.export = new RegExp regexString
+    regexString = "^class ([a-z0-9_-]+)"
+    @regexes.export = new RegExp regexString, 'gi'
 
   ###*
    * Wrap the preprocessor in this function.

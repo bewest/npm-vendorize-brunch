@@ -1,11 +1,19 @@
-Module = require './module'
-Preprocessor = require './preprocessor'
+Module = require './lib/module'
+Preprocessor = require './lib/preprocessor'
 expect = require('chai').expect
 
+MatchedDeclarationsFixtures = require './fixtures/declarations/matched'
+NotMatchedDeclarationsFixtures = require './fixtures/declarations/not_matched'
+
 describe 'preprocessor', ->
-  preprocessor = new Preprocessor
-    paths:
-      app: ''
+
+  # make the preprocessor var available
+  preprocessor = null
+
+  beforeEach ->
+    preprocessor = new Preprocessor
+      paths:
+        app: ''
 
   it 'should instantiate', ->
     expect(preprocessor).to.be.ok
@@ -17,67 +25,17 @@ describe 'preprocessor', ->
 
   describe 'regex require', ->
 
-    appMethodRequire  = preprocessor.settings.naming.prefixApp
-    appMethodRequire += preprocessor.settings.naming.require
-
-    appMethodInclude  = preprocessor.settings.naming.prefixApp
-    appMethodInclude += preprocessor.settings.naming.include
-
-    vendorMethodRequire  = preprocessor.settings.naming.prefixVendor
-    vendorMethodRequire += preprocessor.settings.naming.require
-
-    vendorMethodInclude  = preprocessor.settings.naming.prefixVendor
-    vendorMethodInclude += preprocessor.settings.naming.include
-
-    declarations = []
-
-    declarations.push "MyVar = #{appMethodRequire} my.module.path"
-    declarations.push "MyVar = #{appMethodRequire} module"
-    declarations.push "MyVar = #{vendorMethodRequire} my.module.path"
-    declarations.push "MyVar = #{vendorMethodRequire} module"
-    declarations.push "MyVar = #{appMethodInclude} my.module.path"
-    declarations.push "MyVar = #{appMethodInclude} module"
-    declarations.push "MyVar = #{vendorMethodInclude} my.module.path"
-    declarations.push "MyVar = #{vendorMethodInclude} module"
-
-    declarations.push "#{appMethodRequire} my.module.path"
-    declarations.push "#{appMethodRequire} module"
-    declarations.push "#{vendorMethodRequire} my.module.path"
-    declarations.push "#{vendorMethodRequire} module"
-    declarations.push "#{appMethodInclude} my.module.path"
-    declarations.push "#{appMethodInclude} module"
-    declarations.push "#{vendorMethodInclude} my.module.path"
-    declarations.push "#{vendorMethodInclude} module"
-
-    for declaration in declarations
+    for declaration in MatchedDeclarationsFixtures.require
       do (declaration) ->
-        it 'should match declaration ' + declaration, ->
-          matched = preprocessor.regexes.require.test(declaration)
+        it 'should match declaration ' + declaration.before, ->
+          matched = preprocessor.regexes.require.test(declaration.before)
           expect(matched).to.be.true
 
-    declarations = []
+        it 'should generate the correct declaration for ' + declaration.before, ->
+          content = preprocessor.preprocessRequires declaration.before
+          expect(content).to.equal declaration.after
 
-    declarations.push "MyVar = #{appMethodRequire} \"module\""
-    declarations.push "MyVar = #{vendorMethodRequire} \"module\""
-    declarations.push "MyVar = #{appMethodInclude} \"module\""
-    declarations.push "MyVar = #{vendorMethodInclude} \"module\""
-
-    declarations.push "#{appMethodRequire} \"module\""
-    declarations.push "#{vendorMethodRequire} \"module\""
-    declarations.push "#{appMethodInclude} \"module\""
-    declarations.push "#{vendorMethodInclude} \"module\""
-
-    declarations.push "MyVar = #{appMethodRequire} module."
-    declarations.push "MyVar = #{vendorMethodRequire} module."
-    declarations.push "MyVar = #{appMethodInclude} module."
-    declarations.push "MyVar = #{vendorMethodInclude} module."
-
-    declarations.push "#{appMethodRequire} module."
-    declarations.push "#{vendorMethodRequire} module."
-    declarations.push "#{appMethodInclude} module."
-    declarations.push "#{vendorMethodInclude} module."
-
-    for declaration in declarations
+    for declaration in NotMatchedDeclarationsFixtures.require
       do (declaration) ->
         it 'should not match declaration ' + declaration, ->
           matched = preprocessor.regexes.require.test(declaration)
@@ -85,25 +43,17 @@ describe 'preprocessor', ->
 
   describe 'regex export', ->
 
-    declarations = []
-
-    declarations.push "class MyClass"
-    declarations.push "class MyClass extends MyParentClass"
-
-    for declaration in declarations
+    for declaration in MatchedDeclarationsFixtures.export
       do (declaration) ->
-        it 'should match declaration ' + declaration, ->
-          matched = preprocessor.regexes.export.test(declaration)
+        it 'should match declaration ' + declaration.before, ->
+          matched = preprocessor.regexes.export.test(declaration.before)
           expect(matched).to.be.true
 
-    declarations = []
+        it 'should generate the correct declaration for ' + declaration.before, ->
+          content = preprocessor.preprocessExports declaration.before
+          expect(content).to.equal declaration.after
 
-    declarations.push "module.exports = class MyClass"
-    declarations.push " = class MyClass"
-    declarations.push "= class MyClass"
-    declarations.push " class MyClass"
-
-    for declaration in declarations
+    for declaration in NotMatchedDeclarationsFixtures.export
       do (declaration) ->
         it 'should not match declaration ' + declaration, ->
           matched = preprocessor.regexes.export.test(declaration)
