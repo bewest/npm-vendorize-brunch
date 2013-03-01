@@ -4,7 +4,7 @@ expect = require('chai').expect
 extend = require 'node.extend'
 
 ExistingModulesFixtures = require './fixtures/modules/existing'
-UnknownModulesFixtures = require './fixtures/modules/existing'
+UnknownModulesFixtures = require './fixtures/modules/unknown'
 
 describe 'module', ->
 
@@ -31,3 +31,16 @@ describe 'module', ->
 
       it 'should generate the correct var name', ->
         expect(module.getVarName()).to.equal moduleFixture.varName
+
+  for moduleFixture in UnknownModulesFixtures
+    do (moduleFixture) ->
+      module = new Module
+        isVendor: moduleFixture.isVendor
+        location: moduleFixture.location
+      , settings, settings.paths.app
+
+      it 'should be instantied', ->
+        expect(module).to.be.an.instanceof Module
+
+      it 'should not find the file path of ' + moduleFixture.location, ->
+        expect(module.findPath()).to.be.false
