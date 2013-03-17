@@ -1,5 +1,5 @@
 
-module.exports = class Preprocessor
+module.exports = class NPMVendorize
   brunchPlugin: yes
   type: 'javascript'
   extension: 'coffee'

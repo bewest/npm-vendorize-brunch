@@ -1,16 +1,16 @@
 {
-  "name": "include-preprocessor-brunch",
+  "name": "npm-vendorize-brunch",
   "version": "0.1.0",
   "description": "includes npm sources in vendor.js Brunch output",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bewest/include-preprocessor-brunch.git"
+    "url": "git://github.com/bewest/npm-vendorize-brunch.git"
   },
   "author": {
     "name": "bewest",
     "url": "https://github.com/bewest"
   },
-  "main": "./lib/preprocessor",
+  "main": "./lib/index",
   "scripts": {
     "prepublish": "grunt build",
     "test": "grunt test"
@@ -29,6 +29,5 @@
     "grunt-contrib-watch": "0.2.x",
     "mocha": "1.8.x",
     "chai": "1.5.x"
-  },
-  "readme": "physically include npm sources in vendor.js output"
+  }
 }

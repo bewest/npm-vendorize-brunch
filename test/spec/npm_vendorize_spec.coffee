@@ -1,6 +1,6 @@
 fs = require 'fs'
 
-Preprocessor = require './lib/preprocessor'
+NPMVendorize = require './lib/index'
 expect = require('chai').expect
 
 describe 'preprocessor', ->
@@ -13,7 +13,7 @@ describe 'preprocessor', ->
     #t = './fixtures'
     vendor = { }
     vendor[t] = { include: 'foo.js' }
-    preprocessor = new Preprocessor
+    preprocessor = new NPMVendorize
       paths:
         app: ''
       plugins:
@@ -21,9 +21,9 @@ describe 'preprocessor', ->
 
   it 'should instantiate', ->
     expect(preprocessor).to.be.ok
-    expect(preprocessor).to.be.an.instanceof Preprocessor
+    expect(preprocessor).to.be.an.instanceof NPMVendorize
 
-  it 'should have an include function', ->
+  it 'should have an include method', ->
     expect(preprocessor['include']).to.be.an.instanceof Function
 
   it 'include method should return sources list', ->
